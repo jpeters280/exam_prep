@@ -1,0 +1,48 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="/static/css/styles.css" type="text/css">
+  </head>
+  <body>
+    <div id="wrapper">
+    <h1>welcome, {{ session['alias'] }}!</h1>
+    <a href="/users/logout">Logout</a>
+    <div class = "leftbox">
+    	<h3>Quotable Quotes</h3>
+        {% for x in unfavorite %}
+            <p>{{ x['quote_by'] }}: {{ x['content']}}</p>
+            <a href="/users/{{ x['user_id']}}">{{ x['alias']}}</a>
+            <form action="/favorites/create" method='post'>
+            <input type="hidden" name="quote" value="{{ x['id'] }}">
+            <input type="hidden" name="user" value="{{ session['id']}}">
+            <input type="submit" value="Add to My List">
+            </form>
+            <br>
+        {% endfor %}
+    </div> <!-- endleftbox -->
+    <div class="rightbox">
+    	<h3>Your Favorites</h3>
+        {% for y in favorite %}
+        <p>{{ y['quote_by'] }}: {{ y['content']}}</p>
+        <a href="/users/{{ y['user_id']}}">{{ y['alias']}}</a>
+        <form action="/favorites/delete" method='post'>
+        <input type="hidden" name="user" value="{{ session['id'] }}">
+        <input type="hidden" name="quote" value="{{ y['id'] }}">
+        <input type="submit" value="Remove from My List">
+        </form>
+        <br>	
+        {% endfor %}
+    </div><!-- endrightbox -->
+    <div class="postbox">
+    	<h3>Contribute a quote</h3>
+    	<form action="/quotes/create" method="post">
+    		<label for="author">Author</label>
+            <input type="text" name="author">
+            <label for="content">quote</label>
+            <textarea name="content"></textarea>
+            <input type="hidden" name="id" value="{{ session ['id']}}">
+            <input type="submit" name="">
+    	</form>
+    </div><!-- endpostbox -->
+    </div><!-- endwrapper -->
+  </body>
+</html>

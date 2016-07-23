@@ -1,0 +1,19 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="/static/css/styles.css" type="text/css">
+  </head>
+  <body>
+    <div id="wrapper">
+    	<a href="/users/goback">Dashbord</a>
+    	<p>|</p>
+    	<a href="/users/logout">Logout</a>
+    	<h3> Posts by {{ name ['alias'] }}</h3>
+    	<h4>Count: {{ count ['count(content)'] }}</h4>
+    	<h3>Quotable Quotes</h3>
+        {% for posts in poster %}
+				  <p>{{ posts ['quote_by'] }}: {{ posts ['content']}}</p>
+				  <br>	
+		    {% endfor %}
+    </div><!-- endwrapper -->
+  </body>
+</html>
